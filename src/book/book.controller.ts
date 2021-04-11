@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './create-book-dto';
 
@@ -10,15 +10,28 @@ export class BookController {
   constructor(private readonly BookService: BookService) {}
 
   @Get()
-  async findAll(@Query('q') id: number) {
+  async findAll() {
     return {
       meta: {
         status: true,
         message: 'Success',
       },
-      data: await this.BookService.findAll(id),
+
+      data: await this.BookService.findAll(),
     };
   }
+
+  @Get(':id')
+  async findOne(@Param('id') id: number) {
+    return {
+      meta: {
+        status: true,
+        message: 'Success',
+      },
+      data: await this.BookService.findById(id),
+    };
+  }
+
   @Post()
   async create(@Body() data: CreateBookDto) {
     return {

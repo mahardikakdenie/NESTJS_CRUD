@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from './book.entity';
 import { CreateBookDto } from './create-book-dto';
+// import { Op } from 'sequelize';
 
 @Injectable()
 export class BookService {
@@ -11,16 +12,11 @@ export class BookService {
     @InjectRepository(Book) private readonly bookRepository: Repository<Book>,
   ) {}
 
-  findAll(id) {
-    if (id !== null) {
-      return this.bookRepository.find({
-        where: {
-          id: id,
-        },
-      });
-    } else {
-      return this.bookRepository.find({});
-    }
+  findById(id: number) {
+    return this.bookRepository.findOneOrFail(id);
+  }
+  findAll() {
+    return this.bookRepository.find();
   }
   create(data: CreateBookDto) {
     const book = new Book();
