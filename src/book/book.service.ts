@@ -9,16 +9,13 @@ import { CreateBookDto } from './create-book-dto';
 export class BookService {
   constructor(
     @InjectRepository(Book) private readonly bookRepository: Repository<Book>,
-    ) {}
-    
-    findAll(id) {
-      const { Op } = require("sequelize");
-      if (id !== null) {
-        return this.bookRepository.find({
-          where: {
-          id: {
-            Op
-          }
+  ) {}
+
+  findAll(id) {
+    if (id !== null) {
+      return this.bookRepository.find({
+        where: {
+          id: id,
         },
       });
     } else {
