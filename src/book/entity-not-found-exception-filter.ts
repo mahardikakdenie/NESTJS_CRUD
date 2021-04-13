@@ -14,7 +14,7 @@ export class EntityNotFoundExceptionFilter implements ExceptionFilter {
     response.status(HttpStatus.NOT_FOUND).json({
       statusCode: HttpStatus.NOT_FOUND,
       status: false,
-      message: 'not found',
+      message: 'Data Not Found Try Again Later',
     });
   }
 }

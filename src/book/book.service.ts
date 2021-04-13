@@ -26,4 +26,10 @@ export class BookService {
 
     return this.bookRepository.save(book);
   }
+  update(data: CreateBookDto, id: number) {
+    return this.bookRepository.update(id, { ...data });
+  }
+  delete(id: number) {
+    return this.bookRepository.delete(id);
+  }
 }
