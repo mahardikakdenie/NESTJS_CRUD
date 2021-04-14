@@ -2,6 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateAuthorDto } from './author.dto';
 import { Author } from './author.entity';
 
 @Injectable()
@@ -12,6 +13,17 @@ export class AuthorService {
   ) {}
 
   findAll() {
-    return this.authorRepository.find();
+    return this.authorRepository.find({
+      relations: ['donations'],
+    });
+  }
+
+  create(data: CreateAuthorDto) {
+    const author = new Author();
+    author.fullName = data.fullName;
+    author.home_Address = data.home_adress;
+    author.isActive = false;
+
+    return this.authorRepository.save(author);
   }
 }

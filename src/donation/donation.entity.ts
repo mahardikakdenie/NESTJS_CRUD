@@ -11,5 +11,5 @@ export class Donation {
   nominal: number;
 
   @ManyToOne(() => Author, (author) => author.donations)
-  author: Author;
+  author: number;
 }
