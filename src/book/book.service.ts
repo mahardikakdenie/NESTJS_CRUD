@@ -16,13 +16,16 @@ export class BookService {
     return this.bookRepository.findOneOrFail(id);
   }
   findAll() {
-    return this.bookRepository.find();
+    return this.bookRepository.find({
+      relations: ['author'],
+    });
   }
   create(data: CreateBookDto) {
     const book = new Book();
     book.title = data.title;
     book.publisher_name = data.publisher_name;
     book.isActive = false;
+    book.author = data.authorId;
 
     return this.bookRepository.save(book);
   }

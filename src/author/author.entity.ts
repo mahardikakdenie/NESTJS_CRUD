@@ -1,5 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Book } from 'src/book/book.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 import { Donation } from '../donation/donation.entity';
 
 @Entity()
@@ -16,6 +25,18 @@ export class Author {
   @Column({ default: true })
   isActive: boolean;
 
+  @CreateDateColumn()
+  creted_at: Date;
+
+  @UpdateDateColumn()
+  update_at: Date;
+
+  @DeleteDateColumn()
+  delete_at: Date;
+
   @OneToMany(() => Donation, (donation) => donation.author)
   donations: Donation[];
+
+  @OneToMany(() => Book, (book) => book.author)
+  books: Book[];
 }
