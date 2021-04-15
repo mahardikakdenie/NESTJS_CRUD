@@ -10,7 +10,9 @@ import { CreateBookDto } from './create-book-dto';
 export class BookService {
   constructor(
     @InjectRepository(Book) private readonly bookRepository: Repository<Book>,
-  ) {}
+  ) {
+    useSoftDelete: true;
+  }
 
   findById(id: number) {
     return this.bookRepository.findOneOrFail(id);
@@ -33,6 +35,6 @@ export class BookService {
     return this.bookRepository.update(id, { ...data });
   }
   delete(id: number) {
-    return this.bookRepository.delete(id);
+    return this.bookRepository.softDelete(id);
   }
 }
