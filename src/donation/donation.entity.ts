@@ -1,5 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Author } from '../author/author.entity';
 
 @Entity()
@@ -8,7 +16,16 @@ export class Donation {
   id: number;
 
   @Column()
-  nominal: number;
+  Nominal: number;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn()
+  deleted_at: Date;
 
   @ManyToOne(() => Author, (author) => author.donations)
   author: number;

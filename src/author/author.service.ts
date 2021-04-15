@@ -45,8 +45,6 @@ export class AuthorService {
   }
 
   findById(id: any) {
-    console.log(id);
-
     const qb = this.authorRepository
       .createQueryBuilder('Author')
       .leftJoinAndSelect('Author.books', 'books')

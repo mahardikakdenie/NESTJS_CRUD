@@ -12,18 +12,22 @@ import { AuthorController } from './author/author.controller';
 import { AuthorService } from './author/author.service';
 import { DonationController } from './donation/donation.controller';
 import { DonationService } from './donation/donation.service';
+import 'dotenv/config';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
+      host: process.env.DATABASE_HOST,
+      port: Number(process.env.DATABASE_PORT),
+      username: process.env.DATABASE_USER,
       password: '',
-      database: 'nestjs',
+      database: process.env.DATABASE_DB,
       autoLoadEntities: true,
       synchronize: true,
+      dropSchema: false,
       logging: true,
+      entities: ['dist/**/*.entity.js'],
     }),
     TypeOrmModule.forFeature([User, Book, Author, Donation]),
   ],

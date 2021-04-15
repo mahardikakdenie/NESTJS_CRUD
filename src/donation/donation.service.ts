@@ -13,16 +13,38 @@ export class DonationService {
   ) {}
 
   findAll() {
-    return this.donationRepository.find({ 
-      relations: ['author']
+    return this.donationRepository.find({
+      relations: ['author'],
     });
   }
 
   create(data: CreateDonationDto) {
     const donation = new Donation();
-    donation.nominal = data.Nominal;
+    donation.Nominal = data.Nominal;
     donation.author = data.authorId;
 
     return this.donationRepository.save(donation);
+  }
+
+  findByid(id: any) {
+    const qb = this.donationRepository
+      .createQueryBuilder('Donation')
+      .leftJoinAndSelect('Donation.author', 'author')
+      .where('Donation.id = :id', { id: id.id });
+
+    return qb.getOne();
+  }
+
+  update(data: CreateDonationDto, id: number) {
+    return this.donationRepository.update(id, { ...data });
+  }
+
+  delete(id: any) {
+    const qb = this.donationRepository
+      .createQueryBuilder('Donation')
+      .softDelete()
+      .where('Donation.id = :id', { id: id.id });
+
+    return qb.execute();
   }
 }
