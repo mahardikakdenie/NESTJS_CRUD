@@ -1,6 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthController } from './auth/auth.controller';
+import { Auth } from './auth/auth.entity';
+import { AuthService } from './auth/auth.service';
 import { AuthorController } from './author/author.controller';
 import { Author } from './author/author.entity';
 import { AuthorService } from './author/author.service';
@@ -25,14 +29,25 @@ import { UserService } from './user/user.service';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User, Book, Author, Donation]),
+    TypeOrmModule.forFeature([User, Book, Author, Donation, Auth]),
+    JwtModule.register({
+      secret: 'secret',
+      signOptions: { expiresIn: '1d' },
+    }),
   ],
   controllers: [
     UserController,
     BookController,
     DonationController,
     AuthorController,
+    AuthController,
   ],
-  providers: [UserService, BookService, AuthorService, DonationService],
+  providers: [
+    UserService,
+    BookService,
+    AuthorService,
+    DonationService,
+    AuthService,
+  ],
 })
 export class AppModule {}
