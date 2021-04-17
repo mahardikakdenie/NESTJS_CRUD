@@ -10,12 +10,15 @@ import {
   Patch,
   Post,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { EntityNotFoundExceptionFilter } from './entity-not-found-exception-filter';
 import { BookService } from './book.service';
+import { AuthGuard } from '../auth/auth.guard';
 import { CreateBookDto } from './create-book-dto';
 
 @Controller('books')
+@UseGuards(new AuthGuard())
 @UseFilters(new EntityNotFoundExceptionFilter())
 export class BookController {
   constructor(private readonly BookService: BookService) {}

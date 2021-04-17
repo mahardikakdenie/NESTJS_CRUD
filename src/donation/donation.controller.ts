@@ -10,11 +10,14 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateDonationDto } from './donation.dto';
+import { AuthGuard } from '../auth/auth.guard';
 import { DonationService } from './donation.service';
 
 @Controller('donation')
+@UseGuards(new AuthGuard())
 export class DonationController {
   constructor(private readonly DonationService: DonationService) {
     useSoftDelete: true;

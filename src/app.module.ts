@@ -17,6 +17,7 @@ import { DonationService } from './donation/donation.service';
 import { UserController } from './user/user.controller';
 import { User } from './user/user.entity';
 import { UserService } from './user/user.service';
+import { Userv2Module } from './userv2/userv2.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -34,6 +35,7 @@ import { UserService } from './user/user.service';
       secret: 'secret',
       signOptions: { expiresIn: '1d' },
     }),
+    Userv2Module,
   ],
   controllers: [
     UserController,

@@ -10,11 +10,14 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateAuthorDto } from './author.dto';
 import { AuthorService } from './author.service';
 
 @Controller('author')
+@UseGuards(new AuthGuard())
 export class AuthorController {
   constructor(private readonly AuthorService: AuthorService) {}
 
