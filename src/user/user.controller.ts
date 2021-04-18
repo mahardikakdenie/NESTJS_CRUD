@@ -8,12 +8,15 @@ import {
   Post,
   Put,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './create-user.dto';
+import { AuthGuard } from '../auth/auth.guard';
 import { EntityNotFoundExceptionFilter } from './entity-not-found-exception-filter';
 import { UserService } from './user.service';
 
 @Controller('user/mahasiswa')
+@UseGuards(new AuthGuard())
 @UseFilters(new EntityNotFoundExceptionFilter())
 export class UserController {
   constructor(private readonly userService: UserService) {}
