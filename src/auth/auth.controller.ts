@@ -57,7 +57,13 @@ export class AuthController {
 
       const { password, ...result } = user;
 
-      return result;
+      return {
+        meta: {
+          status: true,
+          message: 'Success',
+        },
+        data: result,
+      };
     } catch (err) {
       throw new UnauthorizedException();
     }

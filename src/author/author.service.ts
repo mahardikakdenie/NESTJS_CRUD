@@ -15,8 +15,6 @@ export class AuthorService {
   }
 
   async findAll(q: any, sort: any) {
-    console.log(sort);
-
     const qb = await this.authorRepository
       .createQueryBuilder('Author')
       .leftJoinAndSelect('Author.books', 'books')

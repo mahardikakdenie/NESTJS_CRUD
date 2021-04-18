@@ -11,18 +11,36 @@ import {
   Post,
   Query,
   UseGuards,
+  UnauthorizedException,
+  Req,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateAuthorDto } from './author.dto';
 import { AuthorService } from './author.service';
+import { JwtService } from '@nestjs/jwt';
+// import { Response, Request } from 'express';
 
 @Controller('author')
 @UseGuards(new AuthGuard())
 export class AuthorController {
-  constructor(private readonly AuthorService: AuthorService) {}
+  constructor(
+    private readonly AuthorService: AuthorService,
+    private jwtService: JwtService,
+  ) {}
 
   @Get()
-  async findAll(@Query() q: string, @Query() sort: string) {
+  async findAll(
+    @Query() q: string,
+    @Query() sort: string,
+    // @Req() request: Request,
+  ) {
+    // const cookie = request.cookies['jwt'];
+
+    // const data = await this.jwtService.verifyAsync(cookie);
+
+    // if (!data) {
+    //   throw new UnauthorizedException();
+    // }
     return {
       meta: {
         status: true,
