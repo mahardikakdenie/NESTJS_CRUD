@@ -14,21 +14,15 @@ import { BookService } from './book/book.service';
 import { DonationController } from './donation/donation.controller';
 import { Donation } from './donation/donation.entity';
 import { DonationService } from './donation/donation.service';
+import { DatabaseConnectionService } from './shared/service/database.connection';
 import { UserController } from './user/user.controller';
 import { User } from './user/user.entity';
 import { UserService } from './user/user.service';
 import { Userv2Module } from './userv2/userv2.module';
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'nestjs',
-      autoLoadEntities: true,
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useClass: DatabaseConnectionService,
     }),
     TypeOrmModule.forFeature([User, Book, Author, Donation, Auth]),
     JwtModule.register({
